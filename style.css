@@ -1,0 +1,407 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+#puzzle {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    background: #333;
+    border-radius: 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin: 0 auto 20px;
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+.tile {
+    position: absolute;
+    cursor: pointer;
+    transition: left 0.3s ease, top 0.3s ease;
+}
+
+.tile:hover:not(.empty) {
+    transform: scale(0.98);
+    box-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.empty {
+    background: rgba(255,255,255,0.1);
+    cursor: default;
+    pointer-events: none;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 16px;
+    background: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.moves {
+    color: white;
+    font-size: 18px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.win-message {
+    color: #ffd700;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    display: none;
+}
+
+.win-message.show {
+    display: block;
+    animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Gallery styles */
+.gallery-container {
+    display: none;
+    text-align: center;
+}
+
+.gallery-container.active {
+    display: block;
+}
+
+.gallery-container h2 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.game-container {
+    display: block;
+}
+
+.game-container.hidden {
+    display: none;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.gallery-item {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+}
+
+.gallery-item .image-label {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.view-toggle {
+    margin-bottom: 20px;
+}
+
+.current-image {
+    color: white;
+    font-size: 16px;
+    margin-top: 10px;
+    opacity: 0.9;
+}
+
+/* Win Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.3s ease;
+    max-width: 400px;
+}
+
+.modal-content h2 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.modal-content p {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.modal-content p span {
+    color: #667eea;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.modal-buttons button {
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#accept {
+    background: #4CAF50;
+    color: white;
+}
+
+#accept:hover {
+    background: #45a049;
+}
+
+#reject {
+    background: #f44336;
+    color: white;
+}
+
+#reject:hover {
+    background: #da190b;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Heart Animation */
+#heartsContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.heart {
+    position: absolute;
+    font-size: 30px;
+    animation: floatHeart 3s ease-in-out forwards;
+    pointer-events: none;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    #puzzle {
+        width: 90vw;
+        height: 90vw;
+        max-width: 450px;
+        max-height: 450px;
+    }
+
+    .tile {
+        width: 100px;
+        height: 100px;
+        background-size: 300px 300px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .controls button {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .moves, .current-image {
+        font-size: 16px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .modal-content {
+        padding: 30px 20px;
+        margin: 0 20px;
+        max-width: 90%;
+    }
+
+    .modal-content h2 {
+        font-size: 22px;
+    }
+
+    .modal-content p {
+        font-size: 16px;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .modal-buttons button {
+        width: 100%;
+        padding: 12px 20px;
+    }
+
+    .heart {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    #puzzle {
+        width: 90vw;
+        height: 90vw;
+        max-width: 350px;
+        max-height: 350px;
+    }
+
+    .tile {
+        width: 90px;
+        height: 90px;
+        background-size: 270px 270px;
+    }
+
+    .modal-content h2 {
+        font-size: 20px;
+    }
+
+    .modal-content p {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliding Puzzle Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+    <div id="heartsContainer"></div>
+
+        <h1>Hehe can u play dis</h1>
+        
+        <div class="game-container" id="gameContainer">
+            <div class="moves">Moves: <span id="moveCount">0</span></div>
+            <div id="puzzle"></div>
+            <div class="controls">
+                <button id="solve">🏆 Force Win (Test)</button>
+            </div>
+        </div>
+
+        <div class="gallery-container" id="galleryContainer">
+            <h2>Change Image</h2>
+            <div class="gallery-grid" id="galleryGrid"></div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="winModal">
+        <div class="modal-content">
+            <h2>Will you be my valentine? ❤️</h2>
+            <p>You solved the puzzle in <span id="finalMoves">0</span> moves!</p>
+            <div class="modal-buttons">
+                <button id="accept">Yes!</button>
+                <button id="reject">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
